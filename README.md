@@ -2,6 +2,8 @@
 
 Browser-only CDR cost investigation app. It parses CSV exports in a Web Worker and persists the current analysis in IndexedDB; it has no backend and does not upload call records.
 
+Licensed under the [Apache License 2.0](./LICENSE). Copyright 2026 Tom Koch.
+
 ## Run locally
 
 Serve this directory with any static-file server, for example:
