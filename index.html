@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a1225" />
+    <title>CallLedger — PBX cost investigation</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="CallLedger home"><span class="brand-mark">⌁</span><span>Call<span>Ledger</span></span></a>
+      <nav aria-label="Primary navigation">
+        <button class="nav-link active" data-view="workspace">Workspace</button>
+        <button class="nav-link" data-view="findings">Findings <span id="finding-badge" class="badge hidden">0</span></button>
+        <button class="nav-link" data-view="calls">Calls</button>
+      </nav>
+      <div class="privacy-chip"><span></span> Local-only analysis</div>
+    </header>
+
+    <main>
+      <section id="workspace" class="view active">
+        <div class="hero">
+          <div><p class="eyebrow">PBX COST INVESTIGATION</p><h1>Find the calls that<br /><em>don’t add up.</em></h1><p class="lede">Upload CDR exports, trace related call legs, and investigate unexpected carrier costs. Your data never leaves this browser.</p></div>
+          <aside class="privacy-card"><div class="privacy-icon">⌂</div><div><strong>Private by design</strong><p>CSV files are processed locally and saved only in this browser.</p></div></aside>
+        </div>
+
+        <section class="card import-card">
+          <div class="section-heading"><div><p class="eyebrow">01 — IMPORT SOURCES</p><h2>Bring your call records together</h2></div><p>Upload one or more CSV files. Each file is converted into the same investigation-ready format.</p></div>
+          <div class="dropzone" id="dropzone"><input id="file-input" type="file" accept=".csv,text/csv" multiple /><div class="upload-icon">↑</div><strong>Drop CSV exports here</strong><span>or <label for="file-input">browse files</label> from your computer</span><small>FreePBX · Telnyx · WiretapTelecom · T38Fax</small></div>
+          <div id="queue" class="queue empty"><span>No files selected yet.</span></div>
+        </section>
+
+        <section class="card source-card" id="source-setup">
+          <div class="section-heading"><div><p class="eyebrow">02 — SOURCE SETUP</p><h2>Tell us how to read each export</h2></div><p>We’ll preview the first 10 rows before anything is analyzed.</p></div>
+          <div id="setup-empty" class="empty-state">Add a CSV above to configure its provider and customer identity.</div>
+          <div id="setup-list"></div>
+        </section>
+
+        <div class="action-row"><button id="clear-btn" class="button ghost">Clear local analysis</button><button id="analyze-btn" class="button primary" disabled>Analyze call records <span>→</span></button></div>
+      </section>
+
+      <section id="findings" class="view">
+        <div class="page-heading"><div><p class="eyebrow">INVESTIGATION QUEUE</p><h1>What needs your attention</h1><p id="findings-subtitle">Import call records to start an investigation.</p></div><button class="button ghost export-btn" data-export="findings">Export findings</button></div>
+        <div id="stats" class="stats"></div>
+        <div class="threshold-control"><span>Long-call threshold</span><input id="long-call-slider" type="range" min="0" max="5" step="1" value="3" /><strong id="long-call-value">30 min</strong></div>
+        <div class="filters"><select id="finding-type-filter"><option value="">All finding types</option></select><select id="confidence-filter"><option value="">All confidence levels</option><option>high</option><option>medium</option><option>low</option></select><select id="customer-filter"><option value="">All customers</option></select></div>
+        <div id="findings-list" class="findings-list empty-state">No findings yet.</div>
+      </section>
+
+      <section id="calls" class="view">
+        <div class="page-heading"><div><p class="eyebrow">NORMALIZED CALLS</p><h1>Explore every call leg</h1><p>Filter across every uploaded source and inspect the original evidence.</p></div><button class="button ghost export-btn" data-export="calls">Export filtered calls</button></div>
+        <div class="filters call-filters"><input id="search-filter" placeholder="Search number, route, ID…" /><select id="provider-filter"><option value="">All providers</option></select><select id="call-customer-filter"><option value="">All customers</option></select><select id="direction-filter"><option value="">All directions</option><option value="inbound">Inbound</option><option value="outbound">Outbound</option></select><label>Min cost <input id="min-cost-filter" type="number" min="0" step=".01" placeholder="$0.00" /></label></div>
+        <div class="table-wrap"><table><thead><tr><th>Started</th><th>Customer</th><th>Direction</th><th>Route</th><th>From → To</th><th>Duration</th><th>Cost</th><th></th></tr></thead><tbody id="calls-table"></tbody></table></div>
+      </section>
+    </main>
+
+    <dialog id="mapping-dialog"><form method="dialog" class="dialog-card"><button class="dialog-close" value="cancel">×</button><p class="eyebrow">COLUMN MAPPING</p><h2>Map this export to CallLedger</h2><p>Choose the CSV column that best represents each field. Only time and one phone-number field are required.</p><div id="mapping-fields" class="mapping-fields"></div><div class="dialog-actions"><button class="button ghost" value="cancel">Cancel</button><button id="save-mapping" class="button primary" value="default">Use mapping</button></div></form></dialog>
+    <dialog id="detail-dialog"><div class="dialog-card wide"><button class="dialog-close" id="detail-close">×</button><div id="detail-content"></div></div></dialog>
+    <div id="toast" role="status"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
