@@ -60,3 +60,34 @@ dialog {
   line-height: 1.45;
   margin: 12px 0 0;
 }
+
+.detail-actions {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.detail-actions h2 { margin: 0; }
+
+.sip-graph {
+  background: #0d1930;
+  border: 1px solid #2d4569;
+  border-radius: 10px;
+  margin: 20px 0 24px;
+  overflow-x: auto;
+  padding: 14px;
+}
+
+.sip-heading { display: flex; gap: 10px; margin-bottom: 8px; }
+.sip-heading strong { color: #eaf0ff; font-size: 13px; }
+.sip-heading span { color: #91a7c8; font-size: 12px; }
+.sip-graph svg { display: block; min-width: 560px; width: 100%; }
+.lane { stroke: #3a557d; stroke-dasharray: 4 4; }
+.lane-label { fill: #c6f36a; font-size: 12px; font-weight: 700; }
+.sip-arrow { stroke: #4bd7db; stroke-width: 2; }
+.sip-label { fill: #b9c9e4; font-size: 11px; }
+
+@media (max-width: 560px) {
+  .detail-actions { align-items: flex-start; flex-direction: column; }
+}
