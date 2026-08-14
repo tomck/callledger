@@ -53,3 +53,10 @@ dialog {
   color: #c6f36a;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
+
+.source-note {
+  color: #aab9d4;
+  font-size: 12px;
+  line-height: 1.45;
+  margin: 12px 0 0;
+}
