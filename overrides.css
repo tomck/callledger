@@ -40,3 +40,16 @@ dialog {
   dialog { width: calc(100vw - 16px); max-width: calc(100vw - 16px); }
   .dialog-card, .dialog-card.wide { padding: 20px; }
 }
+
+.build-footer {
+  border-top: 1px solid #1d2a46;
+  color: #8fa1c1;
+  font-size: 12px;
+  padding: 20px 28px 28px;
+  text-align: center;
+}
+
+.build-footer code {
+  color: #c6f36a;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
